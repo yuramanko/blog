@@ -8,14 +8,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="">
+                    <form method="post" action="{{ @route('post.create') }}">
+                        @csrf
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="email" class="form-control" id="title" placeholder="Title for the Post">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title for the Post">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" id="description" rows="5" placeholder="Enter Description for the Post"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="5" placeholder="Enter Description for the Post"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Post</button>
                     </form>
