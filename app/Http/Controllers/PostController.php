@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -31,7 +31,8 @@ class PostController extends Controller
     public function store(PostStoreRequest $request)
     {
         try{
-            (new PostService())->createPost($request);
+
+            (new PostService())->createPost(auth()->user()->id, $request->all());
             $statusMessage = 'Blog Post was created';
 
         }catch (\Exception $exception){

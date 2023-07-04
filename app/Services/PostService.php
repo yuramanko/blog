@@ -7,10 +7,10 @@ use App\Models\Post;
 
 class PostService
 {
-    public function createPost(PostStoreRequest $request): Post
+    public function createPost(int $userId, array $data): Post
     {
-        $post = new Post($request->all());
-        $post->user_id = auth()->user()->id;
+        $post = new Post($data);
+        $post->user_id = $userId;
         $post->save();
         return $post;
     }
