@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public $service;
+
+    public function __construct(PostService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +39,7 @@ class PostController extends Controller
     {
         try{
 
-            (new PostService())->createPost(auth()->user()->id, $request->all());
+            $this->service->createPost(auth()->user()->id, $request->all());
             $statusMessage = 'Blog Post was created';
 
         }catch (\Exception $exception){
@@ -70,6 +77,6 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->service->destroyPost($id);
     }
 }
