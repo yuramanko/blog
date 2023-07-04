@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Post;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -29,9 +30,14 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
-        $post = new Post($request->all());
-        $post->user_id = auth()->user()->id;
-        $post->save();
+        try{
+            (new PostService())->createPost($request);
+            $statusMessage = 'Blog Post was created';
+
+        }catch (\Exception $exception){
+            $statusMessage = null;
+        }
+        return redirect('dashboard')->with('status', $statusMessage);
     }
 
     /**
